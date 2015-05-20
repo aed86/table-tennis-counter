@@ -1,0 +1,122 @@
+"use strict";
+
+var $ = require('jquery');
+
+var Counter = {
+    init: function () {
+        var self = this;
+        this.getData('../../json/games.json').then(function (response) {
+            self.parseData(response);
+            self.count();
+        });
+    },
+    getData: function (url) {
+        return $.ajax({
+            method: "GET",
+            url: url,
+            dataType: "json"
+        });
+    },
+    parseData: function (response) {
+        var $gamesContainer = $('main.content').hide().empty();
+
+        response.map(function (game) {
+            function parseName (name) {
+                var newName = name.split(' ');
+                return newName[0] + "<br>" + newName[1];
+            }
+
+            var htmlItem = "" +
+                "<div class='row'>" +
+                    "<div class='block col-md-12 text-center left-side'>" +
+                        "<div class='name'>" + parseName(game.player1) + "</div>" +
+                        "<div class='count'>0</div>" +
+                        "<div class='wons'>0</div>" +
+                    "</div>" +
+                    "<div class='block col-md-12 text-center'>" +
+                        "<div class='name'>" + parseName(game.player2) + "</div>" +
+                        "<div class='count'>0</div>" +
+                        "<div class='wons'>0</div>" +
+                    "</div>" +
+                "</div>";
+
+            $gamesContainer.append(htmlItem).show();
+            $gamesContainer.find('.row').addClass('hidden');
+            $gamesContainer.find('.row').eq(0).removeClass('hidden');
+        });
+    },
+    count: function () {
+        var self = this;
+        var moreless = false;
+
+        $('.block').on('click', function () {
+            var $count = $(this).parents('.row').find('.count');
+
+            if (!moreless) {
+                // увеличиваем счетчик
+                var current =  parseInt($(this).find('.count').html());
+                $(this).find('.count').html(++current);
+
+                // если по 10 у обоих, то игра - "больше-меньше"
+                if ($count.eq(0).html() === '10' && $count.eq(1).html() === '10') {
+                    $count.html('=');
+                    moreless = true;
+                }
+
+                // если достиг 11 - выиграл
+                if (current === 11) {
+                    var won =  parseInt($(this).find('.wons').html());
+                    $(this).find('.wons').html(++won);
+                    $count.html('0');
+
+                    // окончательный выигрыш (игроки отыграли)
+                    if (won === 3) {
+                        var $this = $(this);
+                        $this.parents('.row').find('.count').remove();
+                        setTimeout(function () {
+                            self.nextGame($this.parents('.row').index() + 1);
+                        }, 5000);
+                    }
+                }
+            }
+            // игра "больше-меньше"
+            else {
+                // если было поровну, то ставим нужному игроку "больше"
+                if ($(this).find('.count').html() === '=') {
+                    $count.html('-');
+                    $(this).find('.count').html('+');
+                }
+                // если был 0, то уравниваем игроков
+                else if ($(this).find('.count').html() === '-') {
+                    $count.html('=');
+                }
+                // если было "больше", то игрок выигрывает
+                else if ($(this).find('.count').html() === '+') {
+                    won =  parseInt($(this).find('.wons').html());
+                    $(this).find('.wons').html(++won);
+                    moreless = false;
+
+                    // окончательный выигрыш (игроки отыграли)
+                    if (won === 3) {
+                        var $this = $(this);
+                        $this.parents('.row').find('.count').remove();
+                        setTimeout(function () {
+                            self.nextGame($this.parents('.row').index() + 1);
+                        }, 5000);
+                    }
+                    // выигрыш в игре (продолжаем)
+                    else {
+                        $count.html('0');
+                    }
+                }
+            }
+        });
+    },
+    nextGame: function (index) {
+        var $game = $('main.content .row');
+        $game.addClass('hidden');
+        $game.eq(index).removeClass('hidden');
+    }
+}
+
+module.exports = Counter;
