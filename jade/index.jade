@@ -4,11 +4,26 @@ html.no-js
 
     include includes/head
 
-    .hidden
+    .hidden.blur
 
     body
         .main-wrapper
-            main.content
+            .sidebar
+                .players
+                    .row
+                        .col-md-12.text-center
+                            input(type="text", placeholder="name surname")
+
+                        .col-md-12.text-center
+                            input(type="text", placeholder="name surname")
+
+                p.text-center
+                    button.add-players add players
+
+                p.text-center
+                    button.text-uppercase.play Play!
+
+            main.content.blur
                 .row
                     .block.col-md-12.text-center.left-side
                         .name Loading...

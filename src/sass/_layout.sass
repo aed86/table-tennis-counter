@@ -1,25 +1,19 @@
 html, body
     height: 100%
     +mainfont(16px)
-    background: #316d69
+    background: $green
     color: white
     font-weight: bold
     user-select: none
-    cursor: default
+
+    *
+        cursor: default
 
     @media(max-width: 1700px)
         font-size: 80%
 
     @media(max-width: 1400px)
         font-size: 60%
-
-::selection
-    background: $select-text-bg
-    color: $select-text-color
-
-::-moz-selection
-    background: $select-text-bg
-    color: $select-text-color
 
 .main-wrapper
     min-width: $layout-min-width
@@ -45,6 +39,15 @@ html, body
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
+
+    &.blur
+        filter: blur(30px)
+
+.sidebar
+    width: 90%
+    margin: 0 auto
+    position: relative
+    z-index: 1
 
 .footer
     min-width: $layout-min-width

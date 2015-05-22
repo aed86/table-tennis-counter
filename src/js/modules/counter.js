@@ -5,17 +5,38 @@ var $ = require('jquery');
 var Counter = {
     init: function () {
         var self = this;
-        this.getData('../../json/games.json').then(function (response) {
-            self.parseData(response);
+
+        // нажатие на кнопку начала игры
+        $('.sidebar .play').on('click', function () {
+            var players = self.getData();
+            self.parseData(players);
             self.count();
+
+            $('.sidebar').remove();
+            $('.content').removeClass('blur');
+        });
+
+        // нажатие на кнопку добавления игроков
+        $('.add-players').on('click', function () {
+            self.pasteNewPlayers();
         });
     },
-    getData: function (url) {
-        return $.ajax({
-            method: "GET",
-            url: url,
-            dataType: "json"
+    getData: function () {
+        var players = [];
+
+        $('.sidebar .players .row').each(function () {
+            var player1 = $(this).find('input').eq(0).val();
+            var player2 = $(this).find('input').eq(1).val();
+
+            if (player1 !== '' && player2 != '') {
+                players.push({
+                    "player1": player1,
+                    "player2": player2
+                });
+            }
         });
+
+        return players;
     },
     parseData: function (response) {
         var $gamesContainer = $('main.content').hide().empty();
@@ -44,6 +65,19 @@ var Counter = {
             $gamesContainer.find('.row').addClass('hidden');
             $gamesContainer.find('.row').eq(0).removeClass('hidden');
         });
+    },
+    pasteNewPlayers: function () {
+        var players = "" +
+            "<div class='row'>" +
+                "<div class='col-md-12 text-center'>" +
+                    "<input type='text' placeholder='name surname'>" +
+                "</div>" +
+                "<div class='col-md-12 text-center'>" +
+                    "<input type='text' placeholder='name surname'>" +
+                "</div>" +
+            "</div>";
+
+        $('.sidebar .players').append(players);
     },
     count: function () {
         var self = this;
