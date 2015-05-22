@@ -83,13 +83,21 @@ var Counter = {
         var self = this;
         var moreless = false;
 
-        $('.block').on('click', function () {
+        document.oncontextmenu = function () {
+            return false;
+        };
+
+        $('.block').on('mousedown', function (e) {
             var $count = $(this).parents('.row').find('.count');
 
             if (!moreless) {
                 // увеличиваем счетчик
-                var current =  parseInt($(this).find('.count').html());
-                $(this).find('.count').html(++current);
+                var current = parseInt($(this).find('.count').html());
+                if (e.button === 2) {
+                    $(this).find('.count').html(--current);
+                } else {
+                    $(this).find('.count').html(++current);
+                }
 
                 // если по 10 у обоих, то игра - "больше-меньше"
                 if ($count.eq(0).html() === '10' && $count.eq(1).html() === '10') {
