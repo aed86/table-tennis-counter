@@ -44,6 +44,9 @@ var Counter = {
         response.map(function (game) {
             function parseName (name) {
                 var newName = name.split(' ');
+                if (!newName[1]) {
+                    newName[1] = '&nbsp;';
+                }
                 return newName[0] + "<br>" + newName[1];
             }
 
@@ -83,6 +86,7 @@ var Counter = {
         var self = this;
         var moreless = false;
 
+        // убираем вызов контекстного меню при клике
         document.oncontextmenu = function () {
             return false;
         };
@@ -93,6 +97,8 @@ var Counter = {
             if (!moreless) {
                 // увеличиваем счетчик
                 var current = parseInt($(this).find('.count').html());
+
+                // если правая кнопка мыши
                 if (e.button === 2) {
                     $(this).find('.count').html(--current);
                 } else {
