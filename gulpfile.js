@@ -6,7 +6,9 @@ var assign = require('lodash.assign');
 var $ = require('gulp-load-plugins')();
 
 var paths = {
-    csslibs: []
+    csslibs: [
+        'node_modules/animate.css/animate.min.css'
+    ]
 };
 
 gulp.task('jade', function() {
@@ -32,9 +34,12 @@ gulp.task('sass', ['jade'], function () {
         .pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('csslibs', function () {
+gulp.task('csslibs', ['jade'], function () {
     gulp.src(paths.csslibs)
         .pipe($.concat('libs.min.css'))
+        .pipe($.uncss({
+            html: ['index.html']
+        }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
         .pipe(gulp.dest('dist/css'));
@@ -90,5 +95,5 @@ gulp.task('watch', function () {
     gulp.watch('src/img/**/*', ['images']);
 });
 
-gulp.task('build', ['jade', 'sass', 'csslibs', 'images', 'uglify']);
+gulp.task('build', ['sass', 'csslibs', 'images', 'uglify']);
 gulp.task('default', ['watch', 'browserify-watch']);

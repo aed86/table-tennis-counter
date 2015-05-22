@@ -102,7 +102,7 @@ var Counter = {
                 if (e.button === 2) {
                     $(this).find('.count').html(--current);
                 } else {
-                    $(this).find('.count').html(++current);
+                    $(this).find('.count').html(++current).addClass('animated bounceIn');
                 }
 
                 // если по 10 у обоих, то игра - "больше-меньше"
@@ -114,7 +114,7 @@ var Counter = {
                 // если достиг 11 - выиграл
                 if (current === 11) {
                     var won =  parseInt($(this).find('.wons').html());
-                    $(this).find('.wons').html(++won);
+                    $(this).find('.wons').html(++won).addClass('animated bounceIn');
                     $count.html('0');
 
                     // окончательный выигрыш (игроки отыграли)
@@ -131,12 +131,12 @@ var Counter = {
             else {
                 // если было поровну, то ставим нужному игроку "больше"
                 if ($(this).find('.count').html() === '=') {
-                    $count.html('-');
+                    $count.html('-').addClass('animated bounceIn');
                     $(this).find('.count').html('+');
                 }
                 // если был 0, то уравниваем игроков
                 else if ($(this).find('.count').html() === '-') {
-                    $count.html('=');
+                    $count.html('=').addClass('animated bounceIn');
                 }
                 // если было "больше", то игрок выигрывает
                 else if ($(this).find('.count').html() === '+') {
@@ -154,10 +154,14 @@ var Counter = {
                     }
                     // выигрыш в игре (продолжаем)
                     else {
-                        $count.html('0');
+                        $count.html('0').addClass('animated bounceIn');
                     }
                 }
             }
+
+            setTimeout(function () {
+                $('.count, .wons').removeClass('animated bounceIn');
+            },500);
         });
     },
     nextGame: function (index) {
