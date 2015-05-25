@@ -22,18 +22,14 @@ html.no-js
 
                 .players
                     table.table-bordered
-                        tr
-                            td Name1
-                            td 0:0
-                            td Name2
-                            td
-                                button.play Play
-
-                        tr
-                            td Name3
-                            td 0:0
-                            td Name4
-                            td
-                                button.play Play
+                        for game, i in data
+                            tr
+                                td
+                                    =data[i].player1
+                                td 0:0
+                                td
+                                    =data[i].player2
+                                td
+                                    button.play(data-id=data[0].id) Play
 
         include includes/footer
