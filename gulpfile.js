@@ -27,7 +27,7 @@ gulp.task('sass', ['jade'], function () {
             suffix: ".min"
         }))
         .pipe($.uncss({
-            html: ['index.html']
+            html: ['*.html']
         }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
@@ -38,7 +38,7 @@ gulp.task('csslibs', ['jade'], function () {
     gulp.src(paths.csslibs)
         .pipe($.concat('libs.min.css'))
         .pipe($.uncss({
-            html: ['index.html']
+            html: ['*.html']
         }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())

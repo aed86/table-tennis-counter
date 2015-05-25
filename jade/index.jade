@@ -4,35 +4,36 @@ html.no-js
 
     include includes/head
 
-    .hidden.blur.animated.bounceIn
-
     body
+        .hidden.blur.animated.bounceIn
+
         .main-wrapper
-            .sidebar
-                .players
+            main.content
+                .add-players
                     .row
-                        .col-md-12.text-center
+                        .col-md-11.text-center
                             input(type="text", placeholder="name surname")
 
-                        .col-md-12.text-center
+                        .col-md-11.text-center
                             input(type="text", placeholder="name surname")
 
-                p.text-center
-                    button.add-players add players
+                        .col-md-2
+                            button.add Add
 
-                p.text-center
-                    button.text-uppercase.play Play!
+                .players
+                    table.table-bordered
+                        tr
+                            td Name1
+                            td 0:0
+                            td Name2
+                            td
+                                button.play Play
 
-            main.content.blur
-                .row
-                    .block.col-md-12.text-center.left-side
-                        .name Loading...
-                        .count 0
-                        .wons 0
-
-                    .block.col-md-12.text-center
-                        .name Loading...
-                        .count 0
-                        .wons 0
+                        tr
+                            td Name3
+                            td 0:0
+                            td Name4
+                            td
+                                button.play Play
 
         include includes/footer
