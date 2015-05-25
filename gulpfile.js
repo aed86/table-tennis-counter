@@ -11,23 +11,10 @@ var paths = {
     ]
 };
 
-gulp.task('jade', function() {
-    gulp.src('views/*.jade')
-        .pipe($.jade({
-            //pretty: "    "
-        }).on('error', function (err) {
-            console.log(err);
-        }))
-        .pipe(gulp.dest(''))
-});
-
 gulp.task('sass', [], function () {
     return $.rubySass('public/sass', {style: 'expanded'})
         .pipe($.rename({
             suffix: ".min"
-        }))
-        .pipe($.uncss({
-            html: ['*.html']
         }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
@@ -37,9 +24,6 @@ gulp.task('sass', [], function () {
 gulp.task('csslibs', [], function () {
     gulp.src(paths.csslibs)
         .pipe($.concat('libs.min.css'))
-        .pipe($.uncss({
-            html: ['*.html']
-        }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
         .pipe(gulp.dest('public/dist/css'));
