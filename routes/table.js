@@ -50,4 +50,33 @@ router.post('/table/add', function (req, res, next) {
     });
 });
 
+router.delete('/table/:id', function (req, res, next) {
+    try {
+        var id = new ObjectID(req.params.id);
+    } catch (e) {
+        log.error(e.message);
+        return next(404);
+    }
+
+    Tables.findById(id, function (err, table) {
+        if (err) return next(err);
+
+        if (!table) {
+            res.json({
+                message: "Record not found.",
+                success: true
+            });
+        } else {
+            table.remove(function (err) {
+                if (err) throw err;
+
+                res.json({
+                    message: "Ok",
+                    success: true
+                });
+            });
+        }
+    });
+});
+
 module.exports = router;

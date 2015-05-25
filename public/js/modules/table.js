@@ -19,6 +19,9 @@ var Table = {
                 data: {
                     "player1": player1Value,
                     "player2": player2Value
+                },
+                success: function(response) {
+                    //TODO: добавить сюда добавление строки
                 }
             });
 
