@@ -1,0 +1,11 @@
+extends layout
+block content
+    h1= title
+    form(name="login-form", id="login_form", method="post", action="/login")
+        div.form-group
+            input.form-control(type="text", placeholder="Логин", name="username")
+        div.form-group
+            input.form-control(type="password", placeholder="Пароль", name="password")
+        div.form-group
+            button.btn.btn-primary(type="submit") Войти
+            spah.help-block.error

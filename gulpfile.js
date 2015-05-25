@@ -12,7 +12,7 @@ var paths = {
 };
 
 gulp.task('jade', function() {
-    gulp.src('jade/*.jade')
+    gulp.src('views/*.jade')
         .pipe($.jade({
             //pretty: "    "
         }).on('error', function (err) {
@@ -21,8 +21,8 @@ gulp.task('jade', function() {
         .pipe(gulp.dest(''))
 });
 
-gulp.task('sass', ['jade'], function () {
-    return $.rubySass('src/sass', {style: 'expanded'})
+gulp.task('sass', [], function () {
+    return $.rubySass('public/sass', {style: 'expanded'})
         .pipe($.rename({
             suffix: ".min"
         }))
@@ -31,10 +31,10 @@ gulp.task('sass', ['jade'], function () {
         }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest('public/dist/css'));
 });
 
-gulp.task('csslibs', ['jade'], function () {
+gulp.task('csslibs', [], function () {
     gulp.src(paths.csslibs)
         .pipe($.concat('libs.min.css'))
         .pipe($.uncss({
@@ -42,39 +42,39 @@ gulp.task('csslibs', ['jade'], function () {
         }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest('public/dist/css'));
 });
 
 gulp.task('cleanImages', function () {
-    return gulp.src('dist/img', {read: false})
+    return gulp.src('public/dist/img', {read: false})
         .pipe($.clean());
 });
 
 gulp.task('images', ['cleanImages'], function () {
-    return gulp.src('src/img/**/*')
+    return gulp.src('public/img/**/*')
         .pipe($.imagemin({
             progressive: true
         }))
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest('public/dist/img'));
 });
 
 gulp.task('uglify', ['browserify'], function() {
-    return gulp.src('dist/js/*.js')
+    return gulp.src('public/dist/js/*.js')
         .pipe($.uglify({
             preserveComments: 'some'
         }))
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest('public/dist/js'));
 });
 
 gulp.task('browserify', function() {
-    return browserify('src/js/app.js')
+    return browserify('public/js/app.js')
         .bundle()
         .pipe(vinylSourceStream('bundle.js'))
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest('public/dist/js'));
 });
 
 var customOpts = {
-    entries: ['src/js/app.js'],
+    entries: ['public/js/app.js'],
     debug: true
 };
 var opts = assign({}, watchify.args, customOpts);
@@ -86,14 +86,14 @@ b.on('update', browserifybundle);
 function browserifybundle() {
     return b.bundle()
         .pipe(vinylSourceStream('bundle.js'))
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest('public/dist/js'));
 }
 
 gulp.task('watch', function () {
-    gulp.watch('jade/**/*.jade', ['jade']);
-    gulp.watch('src/sass/**/*.sass', ['sass']);
-    gulp.watch('src/img/**/*', ['images']);
+    //gulp.watch('views/**/*.jade', ['jade']);
+    gulp.watch('public/sass/**/*.sass', ['sass']);
+    gulp.watch('public/img/**/*', ['images']);
 });
 
-gulp.task('build', ['sass', 'csslibs', 'images', 'uglify']);
+gulp.task('build', ['sass', 'csslibs', 'images']);
 gulp.task('default', ['watch', 'browserify-watch']);

@@ -1,0 +1,28 @@
+extends layout
+block content
+    h1= title
+    form.form-horizontal(name="register-form", id="register_form", method="post", action="/register")
+        div.form-group
+            label.col-sm-2.control-label(for='name') Имя
+            div.col-sm-10
+                input.form-control(type="text", placeholder="Имя", name="name")
+                span.help-inline
+        div.form-group
+            label.col-sm-2.control-label(for='username') Логин
+            div.col-sm-10
+                input.form-control(type="text", placeholder="Логин", name="username")
+                span.help-inline
+        div.form-group
+            label.col-sm-2.control-label(for='password') Пароль
+            div.col-sm-10
+                input.form-control(type="password", placeholder="Пароль", name="password")
+                span.help-inline
+        div.form-group
+            label.col-sm-2.control-label(for='confirmPassword') Подтверждение пароля
+            div.col-sm-10
+                input.form-control(type="password", placeholder="Подтверждение пароля", name="confirmPassword")
+                span.help-inline
+        div.form-group
+            div.col-sm-offset-2.col-sm-10
+                span.help-block.error
+                button.btn.btn-primary(type="submit") Регистрация

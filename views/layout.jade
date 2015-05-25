@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        base(href="/")
+        title Учетная система заявок
+        link(rel='stylesheet', href='/css/style.css')
+        link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css')
+        script(src='/vendor/bower_components/jquery/dist/jquery.min.js')
+        script(src='/vendor/bower_components/underscore/underscore-min.js')
+        script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js')
+        script(src='js/common.js')
+        script(src='js/login.js')
+        script(src='js/logout.js')
+        script(src='js/register.js')
+        script(src='js/table.js')
+    body
+        div.navbar.navbar-default.navbar-fixed-top
+            div.container
+                ul.nav.navbar-nav
+                    each menuItem in topMenu
+                        li(class=menuItem.active ? 'active' : '')
+                            a(href=menuItem.url, id=menuItem.id)= menuItem.title
+
+                ul.nav.navbar-nav.navbar-right
+                    each menuItem in rightMenu
+                        li
+                            a(href=menuItem.url, id=menuItem.id)= menuItem.title
+        div.container
+            p#flashMessage.text-center.bg-info= flashMessage
+            if (flashMessage)
+                script(type='text/javascript').
+                    showFlashMessage();
+
+    block content
