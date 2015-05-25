@@ -8,14 +8,33 @@ var Table = {
     },
     addPlayers: function () {
         $('#add-players').on('click', function () {
+            var $player1 = $('.add-player1');
+            var $player2 = $('.add-player2');
+            var player1Value = $player1.val();
+            var player2Value = $player2.val();
+
             $.ajax({
                 type: "POST",
                 url: '/table/add',
                 data: {
-                    "player1": $('.add-player1').val(),
-                    "player2": $('.add-player2').val()
+                    "player1": player1Value,
+                    "player2": player2Value
                 }
             });
+
+            var players = "" +
+                "<tr>" +
+                    "<td>" + player1Value + "</td>" +
+                    "<td>0 : 0</td>" +
+                    "<td>" + player2Value + "</td>" +
+                    "<td>" +
+                        "<button data-id='' class='play'>Play</button>" +
+                    "</td>" +
+                "</tr>";
+
+            $('.players table').prepend(players);
+            $player1.val('').focus();
+            $player2.val('');
         });
     }
 }

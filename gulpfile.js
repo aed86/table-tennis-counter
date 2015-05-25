@@ -74,10 +74,9 @@ function browserifybundle() {
 }
 
 gulp.task('watch', function () {
-    //gulp.watch('views/**/*.jade', ['jade']);
     gulp.watch('public/sass/**/*.sass', ['sass']);
     gulp.watch('public/img/**/*', ['images']);
 });
 
-gulp.task('build', ['sass', 'csslibs', 'images']);
+gulp.task('build', ['sass', 'csslibs', 'images', 'uglify']);
 gulp.task('default', ['watch', 'browserify-watch']);
