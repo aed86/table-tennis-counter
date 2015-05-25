@@ -25,11 +25,12 @@ html.no-js
                         for game, i in data
                             tr
                                 td
-                                    =data[i].player1
-                                td 0:0
+                                    =game.player1.name
                                 td
-                                    =data[i].player2
+                                    =game.player1.score + " : " + game.player2.score
                                 td
-                                    button.play(data-id=data[0].id) Play
+                                    =game.player2.name
+                                td
+                                    button.play(data-id=game.id) Play
 
         include includes/footer
