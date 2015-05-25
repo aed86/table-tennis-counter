@@ -1,6 +1,5 @@
 "use strict";
 
-// module example
-var Counter = require('./modules/counter.js');
+var Table = require('./modules/table.js');
 
-//Counter.init();
+Table.init();
