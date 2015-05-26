@@ -37,39 +37,23 @@ var Table = {
                     $player2.val('');
                 },
                 error: function () {
-                    // TODO: show error
+                    alert('error');
                 }
             });
-
-            var players = "" +
-                "<tr>" +
-                    "<td>" + player1Value + "</td>" +
-                    "<td>0 : 0</td>" +
-                    "<td>" + player2Value + "</td>" +
-                    "<td>" +
-                        "<button data-id='' class='play'>Play</button>" +
-                    "</td>" +
-                    "<td>" +
-                        "<button data-id='' class='delete-players'>&times;</button>" +
-                    "</td>" +
-                "</tr>";
-
-            $('.players table').prepend(players);
-            $player1.val('').focus();
-            $player2.val('');
         });
     },
     deletePlayers: function () {
         $('.delete-players').on('click', function () {
+            var $btn = $(this);
             var id = $(this).data('id');
             $.ajax({
                 type: "DELETE",
                 url: '/table/' + id,
                 success: function (res) {
                     if (res.success) {
-                        console.log('removed');
+                        $btn.parents('tr').remove();
                     } else {
-                        console.log('error');
+                        alert('error');
                     }
                 }
             })
