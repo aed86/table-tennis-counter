@@ -8,22 +8,32 @@ var $ = require('gulp-load-plugins')();
 var paths = {
     csslibs: [
         'node_modules/animate.css/animate.min.css'
+    ],
+    html: [
+        'http://localhost:3000/table',
+        'http://localhost:3000/game'
     ]
 };
 
-gulp.task('sass', [], function () {
+gulp.task('sass', function () {
     return $.rubySass('public/sass', {style: 'expanded'})
         .pipe($.rename({
             suffix: ".min"
+        }))
+        .pipe($.uncss({
+            html: paths.html
         }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
         .pipe(gulp.dest('public/dist/css'));
 });
 
-gulp.task('csslibs', [], function () {
+gulp.task('csslibs', function () {
     gulp.src(paths.csslibs)
         .pipe($.concat('libs.min.css'))
+        .pipe($.uncss({
+            html: paths.html
+        }))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
         .pipe(gulp.dest('public/dist/css'));
