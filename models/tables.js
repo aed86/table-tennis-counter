@@ -24,8 +24,12 @@ var Tables = new Schema({
         },
         score: {
             type: String,
-            default: 0
+            default: '0'
         }
+    },
+    status: {
+        type: String,
+        default: 'Pending'
     },
     created: {
         type: Date,

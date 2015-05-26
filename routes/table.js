@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var log = require('../libs/log')(module);
 var Tables = require('../models/tables').Tables;
+var ObjectID = require('mongodb').ObjectID;
 
 //mount routes
 router.get('/', function (req, res) {
@@ -33,7 +34,8 @@ router.post('/table/add', function (req, res, next) {
         player2: {
             name: req.body.player2,
             score: req.body.score2
-        }
+        },
+        status: 'Pending'
     });
 
     table.save(function (err, table, affected) {
@@ -44,12 +46,14 @@ router.post('/table/add', function (req, res, next) {
                 id: table.id,
                 player1: table.player1,
                 player2: table.player2,
-                created: table.created
+                created: table.created,
+                status: table.status
             })
         }
     });
 });
 
+// Удаление игры
 router.delete('/table/:id', function (req, res, next) {
     try {
         var id = new ObjectID(req.params.id);

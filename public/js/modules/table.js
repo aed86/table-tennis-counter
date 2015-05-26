@@ -64,7 +64,7 @@ var Table = {
             var id = $(this).data('id');
             $.ajax({
                 type: "DELETE",
-                url: '/routes/table/' + id,
+                url: '/table/' + id,
                 success: function (res) {
                     if (res.success) {
                         console.log('removed');
