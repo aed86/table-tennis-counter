@@ -40,6 +40,23 @@ var Table = {
                     // TODO: show error
                 }
             });
+
+            var players = "" +
+                "<tr>" +
+                    "<td>" + player1Value + "</td>" +
+                    "<td>0 : 0</td>" +
+                    "<td>" + player2Value + "</td>" +
+                    "<td>" +
+                        "<button data-id='' class='play'>Play</button>" +
+                    "</td>" +
+                    "<td>" +
+                        "<button data-id='' class='delete-players'>&times;</button>" +
+                    "</td>" +
+                "</tr>";
+
+            $('.players table').prepend(players);
+            $player1.val('').focus();
+            $player2.val('');
         });
     },
     deletePlayers: function () {
