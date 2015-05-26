@@ -31,13 +31,17 @@ input
     &:focus
         box-shadow: 0 0 0 1px $green, 0 0 0 3px white
 
-button
+button, .button
     background: none
     border: 3px dotted white
     font-size: 2rem
     color: white
+    text-decoration: none !important
+    display: inline-block
+    padding: 3px
 
     &.add-players
+        width: 5rem
         background: white
         color: $green
         margin: 1rem 0 2rem
@@ -73,5 +77,8 @@ table
         &:nth-child(5)
             width: 7%
 
-.copyright
-    font-size: 2rem
+.result-table
+    opacity: 0
+
+    &:hover
+        opacity: 1
