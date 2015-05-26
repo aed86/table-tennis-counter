@@ -6,6 +6,7 @@ var Table = {
     init: function () {
         this.addPlayers();
         this.deletePlayers();
+        this.startGame();
     },
     addPlayers: function () {
         $('#add-players').on('click', function () {
@@ -17,6 +18,7 @@ var Table = {
             $.ajax({
                 type: "POST",
                 url: '/table/add',
+                dataType: 'json',
                 data: {
                     "player1": player1Value,
                     "player2": player2Value
@@ -52,12 +54,30 @@ var Table = {
             var id = $(this).data('id');
             $.ajax({
                 type: "DELETE",
-                url: '/table/' + id,
+                dataType: 'json',
+                url: '/game/' + id,
                 success: function (res) {
                     if (res.success) {
                         $btn.parents('tr').remove();
                     } else {
                         alert('error');
+                    }
+                }
+            })
+        });
+    },
+    startGame: function () {
+        $(document).on('click', '.play', function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: 'POST',
+                url: '/game/' + id + '/start',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.success) {
+                        window.location.href = '/game/' + id;
+                    } else {
+                        alert("Ошибка");
                     }
                 }
             })

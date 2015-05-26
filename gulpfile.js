@@ -46,6 +46,11 @@ gulp.task('cleanImages', function () {
         .pipe($.clean());
 });
 
+gulp.task('clean', function () {
+    return gulp.src('public/dist/*', {read: false})
+        .pipe($.clean());
+});
+
 gulp.task('images', ['cleanImages'], function () {
     return gulp.src('public/img/**/*')
         .pipe($.imagemin({

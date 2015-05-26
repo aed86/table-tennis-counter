@@ -55,8 +55,14 @@ app.use(require('./middleware/loadUser'));
 // set view locals
 app.use(function (req, res, next) {
     app.locals.route = req.url;
-    app.locals.topMenu = [];
 
+    app.locals.statuses = {
+        'PROCESS_STATUS': 'InProcess',
+        'PENDING_STATUS': 'Pending',
+        'FINISH_STATUS': 'Finish'
+    };
+
+    app.locals.topMenu = [];
     app.locals.rightMenu = [];
     if (req.user) {
         app.locals.rightMenu = app.locals.rightMenu.concat([{

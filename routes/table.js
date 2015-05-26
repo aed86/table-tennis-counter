@@ -54,7 +54,7 @@ router.post('/table/add', function (req, res, next) {
 });
 
 // Удаление игры
-router.delete('/table/:id', function (req, res, next) {
+router.delete('/game/:id', function (req, res, next) {
     try {
         var id = new ObjectID(req.params.id);
     } catch (e) {

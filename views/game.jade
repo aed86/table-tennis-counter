@@ -11,14 +11,22 @@ html.no-js
 
             main.content.center
                 .row
-                    .block.col-md-12.text-center.left-side
-                        .name Загрузка...
-                        .count 0
-                        .wons 0
+                    .block.col-md-12.text-center.left-side(data-player='1')
+                        .name
+                            = player1.name
+                        .count
+                            = player1.point
+                        .wons
+                            = player1.score
 
-                    .block.col-md-12.text-center
-                        .name Загрузка...
-                        .count 0
-                        .wons 0
+                    .block.col-md-12.text-center(data-player='2')
+                        .name
+                            = player2.name
+                        .count
+                            = player2.point
+                        .wons
+                            = player2.score
+
+            input(type='hidden', id='gameId' value="#{id}")
 
         include includes/footer

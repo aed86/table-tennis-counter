@@ -13,7 +13,11 @@ var Tables = new Schema({
             required: true
         },
         score: {
-            type: String,
+            type: Number,
+            default: 0
+        },
+        point: {
+            type: Number,
             default: 0
         }
     },
@@ -23,8 +27,12 @@ var Tables = new Schema({
             required: true
         },
         score: {
-            type: String,
-            default: '0'
+            type: Number,
+            default: 0
+        },
+        point: {
+            type: Number,
+            default: 0
         }
     },
     status: {

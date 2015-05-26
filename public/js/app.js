@@ -1,7 +1,7 @@
 "use strict";
 
 var Table = require('./modules/table.js');
-var Counter = require('./modules/counter.js');
+var Game = require('./modules/game.js');
 
 Table.init();
-//Counter.init();
+Game.init();
