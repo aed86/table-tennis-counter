@@ -1,10 +1,19 @@
 doctype html
 html.no-js
+
     include includes/head
+
     body
+        include includes/svg-symbols
+
         .hidden.blur.animated.bounceIn
+
         .main-wrapper
             main.content
+                    h1.text-center
+                        svg.icon-racket
+                            use(xlink:href="#icon-racket")
+
                     form(name="login-form", id="login_form", method="post", action="/login")
                         .row
                             .col-md-12
