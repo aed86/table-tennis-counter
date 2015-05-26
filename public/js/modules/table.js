@@ -31,6 +31,7 @@ var Table = {
                                 "<button data-id='" + response.id + "' class='play'>Игра</button>" +
                             "</td>" +
                             "<td>" +
+                                "<a data-id='" + response.id + "' class='button' href='/detail/" + response.id + "'>...</a>" +
                                 "<button data-id='" + response.id + "' class='delete-players'>&times;</button>" +
                             "</td>" +
                         "</tr>";
