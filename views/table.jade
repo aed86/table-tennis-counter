@@ -30,7 +30,7 @@ html.no-js
                             button#add-players.add-players +
 
                 .players
-                    table.table-bordered
+                    table.table-bordered.games
                         for game, i in data
                             tr
                                 td
@@ -42,6 +42,7 @@ html.no-js
                                 td
                                     button.play(data-id=game.id) Игра
                                 td
+                                    a.button(data-id=game.id, href="/detail/"+game.id) ...
                                     button.delete-players(data-id=game.id) &times;
 
         include includes/footer

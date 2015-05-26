@@ -10,25 +10,25 @@ html.no-js
 
         .main-wrapper
             main.content
-                    h1.text-center
-                        svg.icon-racket
-                            use(xlink:href="#icon-racket")
+                h1.text-center
+                    svg.icon-racket
+                        use(xlink:href="#icon-racket")
 
-                    form(name="login-form", id="login_form", method="post", action="/login")
-                        .row
-                            .col-md-12
-                                p.text-center
-                                    input(type="text", placeholder="Логин", name="username")
+                form(name="login-form", id="login_form", method="post", action="/login")
+                    .row
+                        .col-md-12
+                            p.text-center
+                                input(type="text", placeholder="Логин", name="username")
 
-                            .col-md-12
-                                p.text-center
-                                    input(type="password", placeholder="Пароль", name="password")
-
-                        p.text-center
-                            button(type="submit") Войти
-                            span.help-block.error
+                        .col-md-12
+                            p.text-center
+                                input(type="password", placeholder="Пароль", name="password")
 
                     p.text-center
-                        a.button(href="/") На главную
+                        button(type="submit") Войти
+                        span.help-block.error
+
+                p.text-center
+                    a.button(href="/") На главную
 
         include includes/footer

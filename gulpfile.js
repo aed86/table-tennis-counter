@@ -11,7 +11,9 @@ var paths = {
     ],
     html: [
         'http://localhost:3000/table',
-        'http://localhost:3000/game'
+        'http://localhost:3000/game',
+        'http://localhost:3000/login',
+        'http://localhost:3000/detail'
     ]
 };
 

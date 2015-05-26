@@ -95,6 +95,7 @@ app.use(function(req, res, next) {
 
 app.use(require('./routes/table'));
 app.use(require('./routes/game'));
+app.use(require('./routes/detail'));
 app.use(require('./routes/login'));
 app.use(require('./routes/logout'));
 app.use(require('./routes/register'));

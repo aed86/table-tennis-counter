@@ -59,10 +59,7 @@ table
     font-size: 3rem
     margin: 0 auto
 
-    td
-        padding: 1rem
-        text-align: center
-
+    &.games td
         &:nth-child(1)
             width: 37%
             text-transform: uppercase
@@ -80,6 +77,10 @@ table
         &:nth-child(5)
             width: 7%
 
+    td
+        padding: 1rem
+        text-align: center
+
 .result-table
     opacity: 0
 
@@ -90,3 +91,10 @@ table
     width: 70px
     height: 70px
     fill: white
+
+.table-results
+    margin-bottom: 1rem
+
+    tr
+        td
+            width: 5%
