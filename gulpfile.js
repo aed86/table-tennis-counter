@@ -90,5 +90,5 @@ gulp.task('watch', function () {
     gulp.watch('public/img/**/*', ['images']);
 });
 
-gulp.task('build', ['sass', 'csslibs', 'images', 'uglify']);
+gulp.task('build', ['sass', 'csslibs', 'uglify']);
 gulp.task('default', ['watch', 'browserify-watch']);
