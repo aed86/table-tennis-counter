@@ -22,9 +22,9 @@ gulp.task('sass', function () {
         .pipe($.rename({
             suffix: ".min"
         }))
-        .pipe($.uncss({
-            html: paths.html
-        }))
+        //.pipe($.uncss({
+        //    html: paths.html
+        //}))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
         .pipe(gulp.dest('public/dist/css'));
@@ -33,9 +33,9 @@ gulp.task('sass', function () {
 gulp.task('csslibs', function () {
     gulp.src(paths.csslibs)
         .pipe($.concat('libs.min.css'))
-        .pipe($.uncss({
-            html: paths.html
-        }))
+        //.pipe($.uncss({
+        //    html: paths.html
+        //}))
         .pipe($.autoprefixer())
         .pipe($.cssmin())
         .pipe(gulp.dest('public/dist/css'));
