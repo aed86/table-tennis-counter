@@ -6,7 +6,6 @@ var _ = require('underscore');
 var Game = {
     init: function () {
         var self = this;
-
         self.id = $('#gameId').val();
         self.getGameData(self.id).then(function(res) {
             self.gameData = res;
