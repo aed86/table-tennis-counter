@@ -5,6 +5,7 @@ var $ = require('jquery');
 var Table = {
     init: function () {
         this.addPlayers();
+        this.deletePlayers();
     },
     addPlayers: function () {
         $('#add-players').on('click', function () {
@@ -20,7 +21,7 @@ var Table = {
                     "player1": player1Value,
                     "player2": player2Value
                 },
-                success: function(response) {
+                success: function (response) {
                     var players = "" +
                         "<tr>" +
                         "<td>" + player1Value + "</td>" +
@@ -35,12 +36,28 @@ var Table = {
                     $player1.val('').focus();
                     $player2.val('');
                 },
-                error: function() {
+                error: function () {
                     // TODO: show error
                 }
             });
         });
+    },
+    deletePlayers: function () {
+        $('#delete-players').on('click', function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type: "DELETE",
+                url: '/table/delete/' + id,
+                success: function (res) {
+                    if (res.success) {
+                        //TODO Удалить
+                    } else {
+                        //TODO: показать ошибку
+                    }
+                }
+            })
+        });
     }
-}
+};
 
 module.exports = Table;
