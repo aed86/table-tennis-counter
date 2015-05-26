@@ -9,16 +9,18 @@ html.no-js
 
         .main-wrapper
             main.content
+                h1.text-center Турнирная таблица
+
                 .add-players
                     .row
                         .col-md-11.text-center
-                            input.add-player1(type="text", placeholder="name surname")
+                            input.add-player1(type="text", placeholder="Имя Фамилия")
 
                         .col-md-11.text-center
-                            input.add-player2(type="text", placeholder="name surname")
+                            input.add-player2(type="text", placeholder="Имя Фамилия")
 
                         .col-md-2
-                            button#add-players.add-players Add
+                            button#add-players.add-players +
 
                 .players
                     table.table-bordered
@@ -31,7 +33,7 @@ html.no-js
                                 td
                                     =game.player2.name
                                 td
-                                    button.play(data-id=game.id) Play
+                                    button.play(data-id=game.id) Игра
                                 td
                                     button.delete-players(data-id=game.id) &times;
 

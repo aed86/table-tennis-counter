@@ -28,7 +28,7 @@ var Table = {
                             "<td>0 : 0</td>" +
                             "<td>" + player2Value + "</td>" +
                             "<td>" +
-                                "<button data-id='" + response.id + "' class='play'>Play</button>" +
+                                "<button data-id='" + response.id + "' class='play'>Игра</button>" +
                             "</td>" +
                             "<td>" +
                                 "<button data-id='" + response.id + "' class='delete-players'>&times;</button>" +
