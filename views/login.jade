@@ -1,11 +1,22 @@
-extends layout
-block content
-    h1= title
-    form(name="login-form", id="login_form", method="post", action="/login")
-        div.form-group
-            input.form-control(type="text", placeholder="Логин", name="username")
-        div.form-group
-            input.form-control(type="password", placeholder="Пароль", name="password")
-        div.form-group
-            button.btn.btn-primary(type="submit") Войти
-            spah.help-block.error
+doctype html
+html.no-js
+    include includes/head
+    body
+        .hidden.blur.animated.bounceIn
+        .main-wrapper
+            main.content
+                    form(name="login-form", id="login_form", method="post", action="/login")
+                        .row
+                            .col-md-12
+                                p.text-center
+                                    input.form-control(type="text", placeholder="Логин", name="username")
+
+                            .col-md-12
+                                p.text-center
+                                    input.form-control(type="password", placeholder="Пароль", name="password")
+
+                        p.text-center
+                            button.btn.btn-primary(type="submit") Войти
+                            spah.help-block.error
+
+        include includes/footer
