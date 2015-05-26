@@ -30,6 +30,9 @@ var Table = {
                             "<td>" +
                                 "<button data-id='" + response.id + "' class='play'>Play</button>" +
                             "</td>" +
+                            "<td>" +
+                                "<button data-id='" + response.id + "' class='delete-players'>&times;</button>" +
+                            "</td>" +
                         "</tr>";
 
                     $('.players table').prepend(players);
@@ -43,7 +46,7 @@ var Table = {
         });
     },
     deletePlayers: function () {
-        $('.delete-players').on('click', function () {
+        $(document).on('click', '.delete-players', function () {
             var $btn = $(this);
             var id = $(this).data('id');
             $.ajax({
