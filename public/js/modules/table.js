@@ -24,12 +24,12 @@ var Table = {
                 success: function (response) {
                     var players = "" +
                         "<tr>" +
-                        "<td>" + player1Value + "</td>" +
-                        "<td>0 : 0</td>" +
-                        "<td>" + player2Value + "</td>" +
-                        "<td>" +
-                        "<button data-id='" + response.id + "' class='play'>Play</button>" +
-                        "</td>" +
+                            "<td>" + player1Value + "</td>" +
+                            "<td>0 : 0</td>" +
+                            "<td>" + player2Value + "</td>" +
+                            "<td>" +
+                                "<button data-id='" + response.id + "' class='play'>Play</button>" +
+                            "</td>" +
                         "</tr>";
 
                     $('.players table').prepend(players);
@@ -60,16 +60,16 @@ var Table = {
         });
     },
     deletePlayers: function () {
-        $('#delete-players').on('click', function () {
+        $('.delete-players').on('click', function () {
             var id = $(this).data('id');
             $.ajax({
                 type: "DELETE",
-                url: '/table/delete/' + id,
+                url: '/routes/table/' + id,
                 success: function (res) {
                     if (res.success) {
-                        //TODO Удалить
+                        console.log('removed');
                     } else {
-                        //TODO: показать ошибку
+                        console.log('error');
                     }
                 }
             })
