@@ -1,8 +1,7 @@
 var gulp = require('gulp');
 var browserify = require('browserify');
 var vinylSourceStream = require('vinyl-source-stream');
-var watchify = require('watchify');
-var assign = require('lodash.assign');
+var es = require('event-stream');
 var $ = require('gulp-load-plugins')();
 
 var paths = {
@@ -46,11 +45,6 @@ gulp.task('cleanImages', function () {
         .pipe($.clean());
 });
 
-gulp.task('clean', function () {
-    return gulp.src('public/dist/*', {read: false})
-        .pipe($.clean());
-});
-
 gulp.task('images', ['cleanImages'], function () {
     return gulp.src('public/img/**/*')
         .pipe($.imagemin({
@@ -68,32 +62,31 @@ gulp.task('uglify', ['browserify'], function() {
 });
 
 gulp.task('browserify', function() {
-    return browserify('public/js/app.js')
-        .bundle()
-        .pipe(vinylSourceStream('bundle.js'))
-        .pipe(gulp.dest('public/dist/js'));
+    var files = [
+        'main.js',
+        'table.js',
+        'game.js'
+    ];
+    var tasks = files.map(function(entry) {
+        return browserify({
+            entries: ['public/js/' + entry],
+            debug: true
+        })
+            .bundle()
+            .pipe(vinylSourceStream(entry))
+            .pipe($.rename({
+                extname: '.bundle.js'
+            }))
+            .pipe(gulp.dest('public/dist/js'));
+    });
+    return es.merge.apply(null, tasks);
 });
-
-var customOpts = {
-    entries: ['public/js/app.js'],
-    debug: true
-};
-var opts = assign({}, watchify.args, customOpts);
-var b = watchify(browserify(opts));
-
-gulp.task('browserify-watch', browserifybundle);
-b.on('update', browserifybundle);
-
-function browserifybundle() {
-    return b.bundle()
-        .pipe(vinylSourceStream('bundle.js'))
-        .pipe(gulp.dest('public/dist/js'));
-}
 
 gulp.task('watch', function () {
     gulp.watch('public/sass/**/*.sass', ['sass']);
     gulp.watch('public/img/**/*', ['images']);
+    gulp.watch('public/js/**/*', ['browserify']);
 });
 
 gulp.task('build', ['sass', 'csslibs', 'uglify']);
-gulp.task('default', ['watch', 'browserify-watch']);
+gulp.task('default', ['watch']);

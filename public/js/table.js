@@ -1,7 +1,5 @@
 "use strict";
 
-var $ = require('jquery');
-
 var Table = {
     init: function () {
         this.addPlayers();
@@ -85,4 +83,4 @@ var Table = {
     }
 };
 
-module.exports = Table;
+Table.init();

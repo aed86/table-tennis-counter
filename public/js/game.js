@@ -1,8 +1,5 @@
 "use strict";
 
-var $ = require('jquery');
-var _ = require('underscore');
-
 var Game = {
     init: function () {
         var self = this;
@@ -267,4 +264,4 @@ var Game = {
     }
 };
 
-module.exports = Game;
+Game.init();
