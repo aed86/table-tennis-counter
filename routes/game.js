@@ -20,7 +20,7 @@ router.get('/game/:id', function (req, res, next) {
             next(err);
         }
 
-        res.render('game', game);
+        res.render('game', prepareGameData(game));
     });
 });
 
@@ -40,7 +40,7 @@ router.get('/game/:id/json', function (req, res, next) {
             next(err);
         }
 
-        res.json(game);
+        res.json(prepareGameData(game));
     });
 });
 
@@ -62,19 +62,22 @@ router.post('/game/:id/save', function (req, res, next) {
         }
 
         var index = 'player' + req.body.player;
-        var score = parseInt(req.body.score);
-        var point = parseInt(req.body.point);
 
-        table[index].score = score;
-        table[index].point = point;
-
+        //res.json({
+        //    success: true,
+        //    data: res.body
+        //});
+        table.player1.score = req.body.player1.score;
+        table.player2.score = req.body.player2.score;
+        table.points = req.body.points;
         table.save(function(err, table) {
             if (err) {
                 next(err);
             }
 
             res.json({
-                success: true
+                success: true,
+                data: table
             })
         });
     });
@@ -121,5 +124,28 @@ router.post('/game/:id/start', function (req, res, next) {
 
 });
 
+// Подготовка данных для frontend
+var prepareGameData = function(game) {
+
+    var gameData = JSON.parse(JSON.stringify(game));
+    gameData.id = gameData._id;
+    delete gameData.__v;
+    delete gameData._id;
+
+    var currentSet = gameData.player1.score + gameData.player2.score;
+
+    if (gameData.points.length < currentSet+1) {
+        gameData.points[currentSet] = {
+            1: 0,
+            2: 0
+        };
+    }
+
+    console.log(currentSet, gameData.points);
+    gameData.player1.point = gameData.points[currentSet][1];
+    gameData.player2.point = gameData.points[currentSet][2];
+
+    return gameData;
+};
 
 module.exports = router;

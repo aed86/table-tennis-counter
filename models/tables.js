@@ -16,10 +16,6 @@ var Tables = new Schema({
             type: Number,
             default: 0
         },
-        point: {
-            type: Number,
-            default: 0
-        }
     },
     player2: {
         name: {
@@ -30,11 +26,8 @@ var Tables = new Schema({
             type: Number,
             default: 0
         },
-        point: {
-            type: Number,
-            default: 0
-        }
     },
+    points: [],
     status: {
         type: String,
         default: 'Pending'
