@@ -14,24 +14,17 @@ var Game = {
         }
     },
     getGameData: function (id) {
-        console.log(id);
         return $.ajax({
             type: 'GET',
             url: '/game/' + id + '/json'
         })
     },
+    changeGameStatus: function() {
+
+    },
     count: function (game) {
         var self = this;
-        var moreless = false;
         var id = self.id;
-        var wons = {
-            player1: game.player1.score,
-            player2: game.player2.score
-        };
-        var currents = {
-            player1: game.player1.point,
-            player2: game.player2.point
-        };
 
         // убираем вызов контекстного меню при клике
         document.oncontextmenu = function () {
@@ -45,25 +38,22 @@ var Game = {
             player2: {
                 score: game.player2.score
             },
-            points: game.points
-            //points: [
-            //{
-            //    1: 11,
-            //    2: 6
-            //},
-            //{
-            //    1: 11,
-            //    2: 5
-            //},
-            //{
-            //    1: 0,
-            //    2: 0
-            //}
-            //]
+            points: game.points,
+            status: game.status
         };
 
         var currentSet = parseInt(totalScore.player1.score) + parseInt(totalScore.player2.score);
 
+        var checkMatchWin = function (totalScore) {
+            if (totalScore.player1.score == 3 || totalScore.player2.score == 3) {
+                alert('you Win');
+                $.ajax({
+
+                })
+            }
+        };
+
+        checkMatchWin(totalScore);
         $('.block').on('mousedown', function (e) {
             var $this = $(this);
             var player = $this.data('player');
@@ -77,15 +67,16 @@ var Game = {
             var point = 0;
             var opponentPoint = null;
 
-            // Манипуляции при победе
-            var playerWin = function(player) {
-                var index = "player"+player;
+            // Манипуляции при победе в сете
+            var playerWinSet = function (player) {
+                var index = "player" + player;
                 point = 0;
                 opponentPoint = 0;
                 currentSet++;
                 totalScore[index].score += 1;
                 $wonsContainer.html(totalScore[index].score).addClass('animated bounceIn');
             };
+
 
             if (totalScore.points.length < currentSet + 1) {
                 totalScore.points.push({1: 0, 2: 0});
@@ -103,16 +94,16 @@ var Game = {
                 totalScore.points[currentSet][player] = 0
             }
 
-            // Если было больше-меньше, и админ скорректировал меньше назад, то победа оппонента
+            // Если было больше-меньше, и админ скорректировал счет "меньше" назад, то победа "больше"
             if (isCorrected && totalScore.points[currentSet][opponent] >= 10 && totalScore.points[currentSet][opponent] - totalScore.points[currentSet][player] > 1) {
-                playerWin(opponent);
+                playerWinSet(opponent);
             } else if (totalScore.points[currentSet][player] >= 10 && totalScore.points[currentSet][player] == totalScore.points[currentSet][opponent]) {
                 point = "=";
                 opponentPoint = "=";
             } else if (totalScore.points[currentSet][player] >= 11) {
                 if (totalScore.points[currentSet][player] - totalScore.points[currentSet][opponent] > 0) {
                     if (totalScore.points[currentSet][player] - totalScore.points[currentSet][opponent] > 1) {
-                        playerWin(player);
+                        playerWinSet(player);
                     } else {
                         point = ">";
                         opponentPoint = "<";
@@ -135,6 +126,8 @@ var Game = {
             _.throttle(function () {
                 self.saveGame(id, totalScore);
             }, 100)();
+
+            checkMatchWin(totalScore);
 
             /*            var $this = $(this);
              var $count = $this.parents('.row').find('.count');
