@@ -14,20 +14,14 @@ html.no-js
 
                 table.table-bordered.detail-results
                     tr
-                        td Имя Фамилия
-                        td 11
-                        td 11
-                        td 8
-                        td 5
-                        td 11
+                        td= player1.name
+                        for point in points
+                            td= point[1]
 
                     tr
-                        td Имя Фамилия
-                        td 9
-                        td 4
-                        td 11
-                        td 11
-                        td 5
+                        td= player2.name
+                        for point in points
+                            td= point[2]
 
                 p.text-center
                     a.button(href="/") На главную
