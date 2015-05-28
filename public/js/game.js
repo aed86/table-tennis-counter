@@ -1,6 +1,9 @@
 "use strict";
 
 var Game = {
+    availableStatuses: function() {
+        return statuses;
+    },
     init: function () {
         var self = this;
         self.id = $('#gameId').val();
@@ -19,8 +22,16 @@ var Game = {
             url: '/game/' + id + '/json'
         })
     },
-    changeGameStatus: function() {
-
+    finishGame: function() {
+        $.ajax({
+            type: 'POST',
+            url: '/game/' + self.id + '/status/' + statuses['FINISH_STATUS'],
+            success: function(response) {
+                if (response.success) {
+                    window.location.href= '/game/' + self.id + '/detail';
+                }
+            }
+        })
     },
     count: function (game) {
         var self = this;
@@ -46,15 +57,18 @@ var Game = {
 
         var checkMatchWin = function (totalScore) {
             if (totalScore.player1.score == 3 || totalScore.player2.score == 3) {
-                alert('you Win');
-                $.ajax({
-
-                })
+                self.finishGame();
             }
         };
 
-        checkMatchWin(totalScore);
+        //checkMatchWin(totalScore);
         $('.block').on('mousedown', function (e) {
+
+            if (totalScore.status == status.FINISH_STATUS) {
+                alert('Game is finished')
+                return;
+            }
+
             var $this = $(this);
             var player = $this.data('player');
             var opponent = player == 1 ? 2 : 1;

@@ -5,6 +5,9 @@ html.no-js
     include includes/head
 
     body
+        script(type='text/javascript').
+            var statuses = !{JSON.stringify(statuses)};
+
         .main-wrapper
             p.text-center.show-result-table
                 a.button(href="/table") Таблица результатов

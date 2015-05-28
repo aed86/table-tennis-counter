@@ -120,9 +120,11 @@ router.post('/game/:id/start', function (req, res, next) {
             });
         }
     });
-
-
 });
+
+var changeGameStatus = function(status) {
+
+};
 
 // Подготовка данных для frontend
 var prepareGameData = function(game) {
