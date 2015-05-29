@@ -37,12 +37,21 @@ html.no-js
                                     =game.player1.name
                                 td
                                     =game.player1.score + " : " + game.player2.score
-                                    br
-                                    =game.status
+                                    if (game.status == 'Finish')
+                                        h5 Игра завершена
+                                    else if (game.status == 'InProcess')
+                                        h5 Игра начата
+                                    else if (game.status == 'Pending')
+                                        h5 Игра не начата
+
                                 td
                                     =game.player2.name
                                 td
-                                    button.play(data-id=game.id) Игра
+                                    button.play(data-id=game.id)
+                                        if (game.status == 'Finish')
+                                            span Детали
+                                        else
+                                            span Игра
                                 td
                                     a.button(data-id=game.id, href="/detail/"+game.id) ...
                                     button.delete-players(data-id=game.id) &times;
