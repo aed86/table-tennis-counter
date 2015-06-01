@@ -47,13 +47,13 @@ html.no-js
                                 td
                                     =game.player2.name
                                 td
-                                    button.play(data-id=game.id)
-                                        if (game.status == 'Finish')
+                                    if (game.status == 'Finish')
+                                        button.detail(data-id=game.id)
                                             span Детали
-                                        else
+                                    else
+                                        button.play(data-id=game.id)
                                             span Игра
                                 td
-                                    a.button(data-id=game.id, href="/detail/"+game.id) ...
                                     button.delete-players(data-id=game.id) &times;
 
         script(src="/dist/js/table.bundle.js")

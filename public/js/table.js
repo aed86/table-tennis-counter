@@ -25,13 +25,14 @@ var Table = {
                     var players = "" +
                         "<tr>" +
                             "<td>" + player1Value + "</td>" +
-                            "<td>0 : 0</td>" +
+                            "<td>0 : 0" +
+                            "<h5>Игра не начата</h5>" +
+                            "</td>" +
                             "<td>" + player2Value + "</td>" +
                             "<td>" +
-                                "<button data-id='" + response.id + "' class='play'>Игра</button>" +
+                                "<button data-id='" + response.id + "' class='play'><span>Игра</span></button>" +
                             "</td>" +
                             "<td>" +
-                                "<a data-id='" + response.id + "' class='button' href='/detail/" + response.id + "'>...</a>" +
                                 "<button data-id='" + response.id + "' class='delete-players'>&times;</button>" +
                             "</td>" +
                         "</tr>";
@@ -65,15 +66,17 @@ var Table = {
         });
     },
     startGame: function () {
-        $(document).on('click', '.play', function () {
+        $(document).on('click', '.play, .detail', function () {
             var id = $(this).data('id');
+            var detailPage = $(this).hasClass('detail');
             $.ajax({
                 type: 'POST',
                 url: '/game/' + id + '/start',
                 dataType: 'json',
                 success: function (res) {
                     if (res.success) {
-                        window.location.href = '/game/' + id;
+                        var detailPostfix = detailPage ? '/detail' : '';
+                        window.location.href = '/game/' + id + detailPostfix;
                     } else {
                         alert("Ошибка");
                     }

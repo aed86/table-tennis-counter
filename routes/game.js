@@ -182,7 +182,6 @@ var prepareGameData = function (game, res) {
         gameData.player2.point = gameData.points[currentSet][2];
     }
 
-
     return gameData;
 };
 
